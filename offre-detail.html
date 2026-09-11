@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-gray-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Développeur Front-end React — Détail de l'offre</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-full flex flex-col justify-between text-gray-900 bg-gray-50 antialiased font-['Inter']">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Stages & Alternances</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="text-gray-600 hover:text-gray-900">Offres</a>
+        <a href="offres-suivies.html" class="text-gray-600 hover:text-gray-900">Offres Suivies</a>
+        <a href="deposer-offre.html" class="text-gray-600 hover:text-gray-900">Publier une offre</a>
+      </nav>
+      <a href="admin.html" class="bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm">Espace Admin</a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
+
+    <div>
+      <a href="index.html" class="text-xs font-medium text-gray-500 hover:text-gray-900 inline-flex items-center gap-1">
+        &larr; Retour au catalogue
+      </a>
+    </div>
+
+    <!-- Article Card -->
+    <article class="bg-white border border-gray-200 rounded-xl p-6 md:p-8 shadow-sm space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase">STAGE</span>
+            <span class="text-xs text-gray-400">Publié le 09 Septembre 2026</span>
+          </div>
+          <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Développeur Front-end React</h1>
+          <p class="text-sm text-gray-600 font-medium">
+            <span class="text-gray-900 font-semibold">TechCorp</span> • Casablanca, Maroc
+          </p>
+        </div>
+
+        <div>
+          <button type="button" class="border border-rose-200 bg-rose-50 text-rose-600 rounded-lg px-3.5 py-2 text-xs font-medium shadow-sm hover:bg-rose-100 transition">
+            Sauvegarder cette offre
+          </button>
+        </div>
+      </div>
+
+      <hr class="border-t border-gray-100">
+
+      <section class="space-y-2">
+        <h2 class="text-xs font-semibold text-gray-400 uppercase">Technologies requises</h2>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">React</span>
+          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">Tailwind CSS</span>
+          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">JavaScript (ES6+)</span>
+          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">REST API</span>
+        </div>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-bold text-gray-900">Missions & Responsabilités</h2>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          Au sein de l'équipe produit de TechCorp, vous participerez au développement et à l'optimisation des applications web front-end. Votre rôle consistera à intégrer des maquettes sous Figma en composants React réutilisables et performants.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-sm font-bold text-gray-900">Profil recherché</h2>
+        <ul class="list-disc pl-4 space-y-1 text-xs text-gray-600 leading-relaxed">
+          <li>Étudiant(e) en informatique ou développement web.</li>
+          <li>Bonne maîtrise de HTML5, CSS3, JavaScript et React.js.</li>
+          <li>Sens de l'esthétique et de l'expérience utilisateur (UI/UX).</li>
+        </ul>
+      </section>
+
+      <section class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-1">
+        <h3 class="text-xs font-bold text-gray-900">Contact & Candidature</h3>
+        <p class="text-xs font-mono text-gray-800">recrutement@techcorp.ma</p>
+      </section>
+
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-6 text-center text-xs text-gray-500 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <p>© 2026 Stages & Alternances</p>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-gray-900">Catalogue</a>
+        <a href="offres-suivies.html" class="hover:text-gray-900">Offres suivies</a>
+        <a href="deposer-offre.html" class="hover:text-gray-900">Dépôt d'offre</a>
+        <a href="admin.html" class="hover:text-gray-900">Administration</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
