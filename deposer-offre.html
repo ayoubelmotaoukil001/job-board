@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-gray-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publier une Offre — Stages & Alternances</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-full flex flex-col justify-between text-gray-900 bg-gray-50 antialiased font-['Inter']">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Stages & Alternances</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="text-gray-600 hover:text-gray-900">Offres</a>
+        <a href="offres-suivies.html" class="text-gray-600 hover:text-gray-900">Offres Suivies</a>
+        <a href="deposer-offre.html" class="text-gray-900 border-b-2 border-gray-900 pb-0.5">Publier une offre</a>
+      </nav>
+      <a href="admin.html" class="bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm">Espace Admin</a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
+
+    <div>
+      <a href="index.html" class="text-xs font-medium text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-2">
+        &larr; Retour au catalogue
+      </a>
+      <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Dépôt d'une nouvelle offre</h1>
+      <p class="text-xs text-gray-500 mt-1">Renseignez les informations pour soumettre une offre de stage ou d'alternance.</p>
+    </div>
+
+    <!-- Form -->
+    <form class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-5" action="index.html" method="GET">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="space-y-1 md:col-span-2">
+          <label for="post-title" class="block text-xs font-bold text-gray-700 uppercase">Titre du poste *</label>
+          <input type="text" id="post-title" required placeholder="ex: Développeur Front-end React" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+        </div>
+
+        <div class="space-y-1">
+          <label for="company-name" class="block text-xs font-bold text-gray-700 uppercase">Nom de l'entreprise *</label>
+          <input type="text" id="company-name" required placeholder="ex: TechCorp" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+        </div>
+
+        <div class="space-y-1">
+          <label for="location" class="block text-xs font-bold text-gray-700 uppercase">Ville *</label>
+          <select id="location" required class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+            <option value="">Sélectionner la ville</option>
+            <option value="casablanca">Casablanca</option>
+            <option value="rabat">Rabat</option>
+            <option value="tanger">Tanger</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label for="contract-type" class="block text-xs font-bold text-gray-700 uppercase">Type de contrat *</label>
+          <select id="contract-type" required class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+            <option value="">Sélectionner le contrat</option>
+            <option value="stage">Stage</option>
+            <option value="alternance">Alternance</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label for="tech-stack" class="block text-xs font-bold text-gray-700 uppercase">Technologies *</label>
+          <input type="text" id="tech-stack" required placeholder="ex: React, Tailwind CSS, JavaScript" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+        </div>
+
+      </div>
+
+      <div class="space-y-1">
+        <label for="description" class="block text-xs font-bold text-gray-700 uppercase">Description de la mission *</label>
+        <textarea id="description" rows="3" required placeholder="Décrivez les objectifs et les tâches du poste..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white"></textarea>
+      </div>
+
+      <div class="space-y-1">
+        <label for="profile" class="block text-xs font-bold text-gray-700 uppercase">Profil recherché *</label>
+        <textarea id="profile" rows="2" required placeholder="Compétences souhaitées et niveau d'études..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white"></textarea>
+      </div>
+
+      <div class="space-y-1">
+        <label for="contact-email" class="block text-xs font-bold text-gray-700 uppercase">Contact / Email *</label>
+        <input type="email" id="contact-email" required placeholder="ex: recrutement@entreprise.ma" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
+        <a href="index.html" class="px-4 py-2 text-xs font-medium text-gray-600 hover:text-gray-900">Annuler</a>
+        <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm">Publier l'offre</button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-6 text-center text-xs text-gray-500 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <p>© 2026 Stages & Alternances</p>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-gray-900">Catalogue</a>
+        <a href="offres-suivies.html" class="hover:text-gray-900">Offres suivies</a>
+        <a href="deposer-offre.html" class="hover:text-gray-900">Dépôt d'offre</a>
+        <a href="admin.html" class="hover:text-gray-900">Administration</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
