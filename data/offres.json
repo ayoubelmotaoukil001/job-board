@@ -1,0 +1,230 @@
+[
+  {
+    "id": 1,
+    "titre": "Développeur Front-end React",
+    "entreprise": "TechCorp",
+    "ville": "Casablanca",
+    "typeContrat": "Stage",
+    "technologies": ["React", "Tailwind CSS", "JavaScript", "TypeScript"],
+    "datePublication": "2026-09-12",
+    "descriptionCourte": "Participation au développement de l'interface utilisateur d'une plateforme SaaS moderne.",
+    "descriptionLongue": "Au sein de l'équipe produit de TechCorp, vous participerez au développement et à l'optimisation des applications web front-end. Votre rôle consistera à intégrer des maquettes Figma en composants React réutilisables, performants et parfaitement responsive.",
+    "profilRecherche": [
+      "Étudiant(e) en Bac+4/5 informatique ou école d'ingénieurs.",
+      "Bonne maîtrise de HTML5, CSS3, JavaScript ES6+ et React.",
+      "Sens de l'esthétique et portée sur l'expérience utilisateur (UI/UX).",
+      "Esprit d'équipe et rigueur dans la qualité du code."
+    ],
+    "emailContact": "recrutement@techcorp.ma",
+    "lienCandidature": "https://techcorp.ma/careers/react-dev"
+  },
+  {
+    "id": 2,
+    "titre": "Développeur Fullstack Node.js / React",
+    "entreprise": "InnoLabs",
+    "ville": "Rabat",
+    "typeContrat": "Alternance",
+    "technologies": ["Node.js", "React", "Express", "MySQL"],
+    "datePublication": "2026-09-11",
+    "descriptionCourte": "Conception d'APIs RESTful performantes et intégration des dashboards back-office.",
+    "descriptionLongue": "InnoLabs recherche un(e) alternant(e) Fullstack pour renforcer son pôle R&D. Vous travaillerez sur le développement de microservices backend sous Node.js/Express et sur la création d'interfaces d'administration sous React.",
+    "profilRecherche": [
+      "Formation supérieure en informatique (Bac+3 à Bac+5).",
+      "Connaissances pratiques de Node.js, Express et des bases de données relationnelles (MySQL/PostgreSQL).",
+      "Bases solides en React.js et architecture API REST.",
+      "Curiosité technique et autonomie."
+    ],
+    "emailContact": "jobs@innolabs.ma",
+    "lienCandidature": "https://innolabs.ma/jobs/fullstack"
+  },
+  {
+    "id": 3,
+    "titre": "Développeur Backend PHP / Laravel",
+    "entreprise": "WebAgency",
+    "ville": "Tanger",
+    "typeContrat": "Stage",
+    "technologies": ["PHP", "Laravel", "PostgreSQL", "Docker"],
+    "datePublication": "2026-09-09",
+    "descriptionCourte": "Maintenance évolutive des services backend et refonte des modules de gestion.",
+    "descriptionLongue": "Rattaché(e) au Lead Developer, vous contribuerez à l'évolution des plateformes e-commerce et métiers basées sur le framework Laravel. Vous prendrez part à la conception de nouvelles fonctionnalités et à l'optimisation des requêtes de base de données.",
+    "profilRecherche": [
+      "Étudiant(e) en informatique (Bac+3/Bac+5).",
+      "Solides compétences en PHP 8+ et POO.",
+      "Première expérience ou projets académiques sur Laravel.",
+      "Notions de Docker et d'intégration continue."
+    ],
+    "emailContact": "contact@webagency.ma",
+    "lienCandidature": "https://webagency.ma/recrutement"
+  },
+  {
+    "id": 4,
+    "titre": "Intégrateur Web & UI Designer",
+    "entreprise": "Designify",
+    "ville": "Casablanca",
+    "typeContrat": "Alternance",
+    "technologies": ["HTML5", "CSS3", "Figma", "Tailwind CSS", "JavaScript"],
+    "datePublication": "2026-09-07",
+    "descriptionCourte": "Création et intégration de maquettes responsive avec Tailwind CSS et animations CSS.",
+    "descriptionLongue": "Designify recherche un profil créatif et rigoureux pour concevoir des prototypes interactifs sous Figma et les convertir en code HTML/CSS/JS d'une précision millimétrique, tout en garantissant un haut niveau d'accessibilité.",
+    "profilRecherche": [
+      "Bac+2 à Bac+4 spécialisé en Design Web ou Intégration Front-end.",
+      "Maîtrise experte de Figma, CSS grid/flexbox et Tailwind CSS.",
+      "Attention portée au design responsive, aux micro-animations et au SEO.",
+      "Portfolio de créations web exigé."
+    ],
+    "emailContact": "talent@designify.ma",
+    "lienCandidature": "https://designify.ma/careers/ui-integrator"
+  },
+  {
+    "id": 5,
+    "titre": "Développeur mobile Flutter / Mobile Web",
+    "entreprise": "AppVentures",
+    "ville": "Marrakech",
+    "typeContrat": "Stage",
+    "technologies": ["Flutter", "Dart", "REST API", "Firebase"],
+    "datePublication": "2026-09-05",
+    "descriptionCourte": "Développement et tests d'applications mobiles cross-platform pour le secteur du tourisme.",
+    "descriptionLongue": "Rejoignez une startup dynamique à Marrakech ! Vous participerez à la création d'applications mobiles Flutter connectées à des services backend Firebase et REST. Vous prendrez part aux phases de prototypage, de codage et de recettes.",
+    "profilRecherche": [
+      "Étudiant(e) en informatique passionné(e) par le mobile.",
+      "Bases solides en programmation orientée objet (Dart, Java, Kotlin ou Swift).",
+      "Sens du travail en méthode agile Scrum.",
+      "Capacité à résoudre des problèmes complexes."
+    ],
+    "emailContact": "recrutement@appventures.ma",
+    "lienCandidature": "https://appventures.ma/join"
+  },
+  {
+    "id": 6,
+    "titre": "Développeur Front-end Vue.js",
+    "entreprise": "CloudData",
+    "ville": "Rabat",
+    "typeContrat": "Alternance",
+    "technologies": ["Vue.js", "Nuxt.js", "JavaScript", "CSS3"],
+    "datePublication": "2026-09-04",
+    "descriptionCourte": "Intégration d'applications web d'analyse de données avec Vue 3 et Nuxt.",
+    "descriptionLongue": "CloudData conçoit des outils d'analyse de données volumineuses pour les entreprises. Vous rejoindrez l'équipe UI/UX pour bâtir des tableaux de bord interactifs à l'aide de Vue 3, Pinia et Nuxt.js.",
+    "profilRecherche": [
+      "Étudiant(e) en informatique Bac+4 ou Bac+5.",
+      "Bonne connaissance de l'écosystème Vue.js (Vue 3, Composition API).",
+      "Aisance avec les graphiques interactifs (Chart.js / D3.js est un plus).",
+      "Rigueur et goût du travail bien fait."
+    ],
+    "emailContact": "rh@clouddata.ma",
+    "lienCandidature": "https://clouddata.ma/alternance-vue"
+  },
+  {
+    "id": 7,
+    "titre": "Développeur Python / Django Backend",
+    "entreprise": "PyMatrix",
+    "ville": "Casablanca",
+    "typeContrat": "Stage",
+    "technologies": ["Python", "Django", "PostgreSQL", "REST API"],
+    "datePublication": "2026-09-02",
+    "descriptionCourte": "Développement d'APIs sécurisées et automatisation de traitements de données.",
+    "descriptionLongue": "PyMatrix recherche un stagiaire passionné par Python et le web backend. Vous participerez au développement d'APIs REST robustes avec Django REST Framework pour des clients d'envergure internationale.",
+    "profilRecherche": [
+      "Étudiant(e) en fin d'études d'ingénieur ou Master informatique.",
+      "Excellente maîtrise de Python 3 et de la logique de programmation.",
+      "Expérience avec Django ou Flask.",
+      "Connaissance des principes Clean Code et tests unitaires."
+    ],
+    "emailContact": "careers@pymatrix.ma",
+    "lienCandidature": "https://pymatrix.ma/internships"
+  },
+  {
+    "id": 8,
+    "titre": "Développeur WordPress / PHP Headless",
+    "entreprise": "MediaPulse",
+    "ville": "Agadir",
+    "typeContrat": "Stage",
+    "technologies": ["PHP", "WordPress", "GraphQL", "JavaScript"],
+    "datePublication": "2026-08-30",
+    "descriptionCourte": "Conception de thèmes et plugins sur-mesure ainsi que la configuration de WP Headless.",
+    "descriptionLongue": "Au sein de l'agence MediaPulse, vous travaillerez sur la numérisation de médias régionaux. Vous créerez des solutions sur-mesure en utilisant WordPress comme CMS Headless couplé à une interface moderne en JavaScript.",
+    "profilRecherche": [
+      "Étudiant(e) en développement informatique ou multimédia.",
+      "Connaissances en PHP, HTML, CSS et JS.",
+      "Familarité avec la structure de WordPress (Hooks, Custom Post Types).",
+      "Esprit d'initiative et curiosité."
+    ],
+    "emailContact": "stage@mediapulse.ma",
+    "lienCandidature": "https://mediapulse.ma/offres"
+  },
+  {
+    "id": 9,
+    "titre": "Ingénieur QA / Testeur Logiciel Web",
+    "entreprise": "QualityFirst",
+    "ville": "Fès",
+    "typeContrat": "Alternance",
+    "technologies": ["JavaScript", "Cypress", "Selenium", "Git"],
+    "datePublication": "2026-08-28",
+    "descriptionCourte": "Automatisation des tests E2E et validation fonctionnelle des applications web.",
+    "descriptionLongue": "QualityFirst aide les éditeurs de logiciels à maintenir un niveau de qualité optimal. Dans le cadre de votre alternance, vous rédigerez des plans de tests, exécuterez des tests manuels et automatiserez des scénarios sous Cypress.",
+    "profilRecherche": [
+      "Formation Bac+3/5 en Ingénierie Logicielle.",
+      "Rigueur d'analyse, logique méthodique et souci du détail.",
+      "Connaissances de base en JavaScript et requêtes HTTP.",
+      "Intérêt marqué pour l'assurance qualité et les méthodes agiles."
+    ],
+    "emailContact": "recrutement@qualityfirst.ma",
+    "lienCandidature": "https://qualityfirst.ma/qa-job"
+  },
+  {
+    "id": 10,
+    "titre": "Développeur Front-end Next.js / React (Remote)",
+    "entreprise": "NextGen Soft",
+    "ville": "En ligne / Remote",
+    "typeContrat": "Alternance",
+    "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    "datePublication": "2026-08-25",
+    "descriptionCourte": "Création d'applications web SSR et d'architectures Jamstack réactives.",
+    "descriptionLongue": "Travaillez 100% à distance ! NextGen Soft recherche un alternant pour concevoir des applications web à fort trafic en utilisant Next.js 14, TypeScript et Tailwind. Vous profiterez d'un encadrement de qualité par un Senior Frontend Architect.",
+    "profilRecherche": [
+      "Étudiant(e) en Master ou École d'Ingénieur.",
+      "Bonne maîtrise de TypeScript et React.",
+      "Notions de Server Components, SSR et SSG avec Next.js.",
+      "Très bonne autonomie et communication écrite irréprochable."
+    ],
+    "emailContact": "hello@nextgensoft.io",
+    "lienCandidature": "https://nextgensoft.io/remote-job"
+  },
+  {
+    "id": 11,
+    "titre": "Développeur DevOps & Web Cloud",
+    "entreprise": "CloudOps Morocco",
+    "ville": "Casablanca",
+    "typeContrat": "Stage",
+    "technologies": ["Docker", "Linux", "Node.js", "Git"],
+    "datePublication": "2026-08-20",
+    "descriptionCourte": "Mise en place de pipelines CI/CD et déploiement d'applications web sur le Cloud.",
+    "descriptionLongue": "Assisté(e) par nos ingénieurs Cloud, vous participerez à l'automatisation des déploiements web, à la conteneurisation d'applications via Docker et à la surveillance de l'infrastructure de nos clients.",
+    "profilRecherche": [
+      "Étudiant(e) en spécialité Systèmes, Réseaux ou DevOps.",
+      "Bonne prise en main des systèmes Linux (Ubuntu/Debian).",
+      "Connaissances de Docker, Git et des bases du scripting (Bash/Python).",
+      "Désir d'apprendre et de se perfectionner dans le Cloud computing."
+    ],
+    "emailContact": "ops@cloudops.ma",
+    "lienCandidature": "https://cloudops.ma/careers"
+  },
+  {
+    "id": 12,
+    "titre": "Développeur Fullstack Java / Angular",
+    "entreprise": "Fintech Solutions",
+    "ville": "Rabat",
+    "typeContrat": "Alternance",
+    "technologies": ["Java", "Spring Boot", "Angular", "TypeScript"],
+    "datePublication": "2026-08-15",
+    "descriptionCourte": "Développement de modules financiers sécurisés et d'interfaces web d'entreprise.",
+    "descriptionLongue": "Fintech Solutions accompagne les institutions bancaires et financières dans leur transformation digitale. En tant qu'alternant Fullstack Java/Angular, vous participerez à la conception et à la réalisation de services bancaires sécurisés.",
+    "profilRecherche": [
+      "Étudiant(e) en Bac+4/5 Informatique.",
+      "Connaissances solides de Java 17+, Spring Boot et Hibernate.",
+      "Pratique du framework Angular (TypeScript, RxJS).",
+      "Sens de la sécurité et rigueur conceptuelle."
+    ],
+    "emailContact": "recrutement@fintechsolutions.ma",
+    "lienCandidature": "https://fintechsolutions.ma/alternance"
+  }
+]
