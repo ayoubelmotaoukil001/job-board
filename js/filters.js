@@ -5,6 +5,8 @@ function filterOffer(offres, filters) {
 
         const matchesContract = !filters.contract || offer.typeContract === filters.contract
 
-        return matchesCity && matchesContract
+        const matchesTechnology = !filters.technology || offer.includes(filters.technology)
+
+        return matchesCity && matchesContract && matchesTechnology
     })
-}
+}   
