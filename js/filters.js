@@ -14,3 +14,18 @@ function filterOffer(offres, filters) {
         return matchesCity && matchesContract && matchesTechnology && matchesSearch
     })
 }   
+
+function sortOffersByDate(offers) {
+    return [...offers].sort((a, b) => {
+        return new Date(b.datePublication) - new Date(a.datePublication)
+    })
+}
+
+function resetFilters() {
+    return {
+        search: "",
+        technology: "",
+        city: "",
+        contract: ""
+    }
+}
