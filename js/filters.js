@@ -7,6 +7,10 @@ function filterOffer(offres, filters) {
 
         const matchesTechnology = !filters.technology || offer.includes(filters.technology)
 
-        return matchesCity && matchesContract && matchesTechnology
+        const matchesSearch =!filters.titre.toLowercase().includes(filters.search.toLowercase()) || 
+                             !filters.entreprise.toLowercase().includes(filters.search.toLowercase()) || 
+                             !filters.descriptionCourte.toLowercase().includes(filters.search.toLowercase()) 
+
+        return matchesCity && matchesContract && matchesTechnology && matchesSearch
     })
 }   
