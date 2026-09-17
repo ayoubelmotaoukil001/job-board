@@ -21,6 +21,7 @@ function sortOffersByDate(offers) {
     })
 }
 
+
 function resetFilters() {
     return {
         search: "",
