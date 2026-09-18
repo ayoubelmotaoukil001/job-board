@@ -47,3 +47,5 @@ function resetFilters() {
         contract: ""
     };
 }
+
+
