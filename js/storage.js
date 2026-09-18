@@ -31,3 +31,8 @@ function removeFollowedOffer(offerId) {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updateOffers))
 }
+
+function isFollowed(offerId) {
+    return getFollowedOffers().includes(offerId)
+}
+
