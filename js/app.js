@@ -8,12 +8,12 @@ import {
 import { applyAllFilters } from './filters.js';
 import { toggleFollowOffer } from './storage.js';
 
-
 let allOffers = [];
 
 const currentFilters = {
   keyword: '',
   contract: 'all',
+  city: '',
   technologies: [],
   sortOrder: 'recent'
 };
@@ -22,6 +22,7 @@ const container = document.querySelector('#offers-container');
 const countElement = document.querySelector('#offer-count');
 const searchInput = document.querySelector('#search-input');
 const contractSelect = document.querySelector('#contract-filter');
+const citySelect = document.querySelector('#city-filter');
 const sortSelect = document.querySelector('#sort-select');
 const techCheckboxes = document.querySelectorAll('input[name="tech"]');
 
@@ -41,6 +42,13 @@ if (searchInput) {
 if (contractSelect) {
   contractSelect.addEventListener('change', (e) => {
     currentFilters.contract = e.target.value;
+    updateUI();
+  });
+}
+
+if (citySelect) {
+  citySelect.addEventListener('change', (e) => {
+    currentFilters.city = e.target.value;
     updateUI();
   });
 }
