@@ -2,7 +2,7 @@ async function getOffers() {
 
     try{
 
-    const response = await fetch("./job-board/data/json")
+    const response = await fetch("./data/offers.json")
 
     if(!response.ok) {
         throw new Error("erreur lors de chargement des offres")
