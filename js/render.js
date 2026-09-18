@@ -88,6 +88,10 @@ export function createOfferCard(offer) {
         badgeTech.textContent = tech;
         techList.appendChild(badgeTech);
     }
+    if (Array.isArray(offer.technologies)) {
+        offer.technologies.forEach(appendTech);
+    }
+
 
     // Card Footer
     const cardFooter = document.createElement('div');
