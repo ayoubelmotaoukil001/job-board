@@ -22,3 +22,12 @@ function addFollowedOffer(offerId) {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify-followedOffers)
 }
+
+function removeFollowedOffer(offerId) {
+    
+    const followedOffers = getFollowedOffers()
+
+    const updateOffers = followedOffers.filter(id => id !== offerId)
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updateOffers))
+}
