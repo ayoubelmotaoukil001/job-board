@@ -59,6 +59,7 @@ export function createOfferCard(offer) {
     cardHeader.appendChild(badgeContrat);
     cardHeader.appendChild(btnFollow);
 
+    // Title
     const title = document.createElement('h3');
     title.className = 'text-lg font-bold text-gray-900';
     title.textContent = offer.titre;
@@ -67,14 +68,17 @@ export function createOfferCard(offer) {
     company.className = 'text-xs text-gray-500 font-medium';
     company.textContent = `${offer.entreprise} - ${offer.ville}`;
 
+    // Date
     const date = document.createElement('p');
     date.className = 'text-xs text-gray-400';
     date.textContent = `publied at: ${offer.datePublication}`;
 
+    // Description
     const desc = document.createElement('p');
     desc.className = 'text-xs text-gray-600 line-clamp-2 leading-relaxed';
     desc.textContent = offer.descriptionCourte;
 
+    // Tech List
     const techList = document.createElement('div');
     techList.className = 'flex flex-wrap gap-1.5 pt-1';
 
@@ -84,8 +88,8 @@ export function createOfferCard(offer) {
         badgeTech.textContent = tech;
         techList.appendChild(badgeTech);
     }
-    offer.technologies.forEach(appendTech);
 
+    // Card Footer
     const cardFooter = document.createElement('div');
     cardFooter.className = 'flex items-center justify-between border-t border-gray-100 pt-3';
 
@@ -96,10 +100,11 @@ export function createOfferCard(offer) {
 
     cardFooter.appendChild(detailLink);
 
+    // Append everything to card
     card.appendChild(cardHeader);
     card.appendChild(title);
     card.appendChild(company);
-    card.appendChild(date);
+    if (offer.datePublication) card.appendChild(date);
     card.appendChild(desc);
     card.appendChild(techList);
     card.appendChild(cardFooter);
