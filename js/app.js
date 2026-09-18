@@ -8,6 +8,7 @@ import {
 import { applyAllFilters } from './filters.js';
 import { toggleFollowOffer } from './storage.js';
 
+
 let allOffers = [];
 
 const currentFilters = {
