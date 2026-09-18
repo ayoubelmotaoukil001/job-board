@@ -1,21 +1,18 @@
-async function getOffers() {
-
-    try{
-
-    const response = await fetch("./data/offers.json")
-
-    if(!response.ok) {
-        throw new Error("erreur lors de chargement des offres")
+export async function fetchOffers() {
+  try {
+    const response = await fetch('./data/offers.json');
+    if (!response.ok) {
+      throw new Error('Erreur lors du chargement des offres');
     }
-    
-    const offers = await response.json()
-
-    console.log(offers)
-    }
-
-    catch(error) {
-        console.log(error)
-    }
-   
+    const offers = await response.json();
+    return offers;
+  } catch (error) {
+    console.error('fetchOffers error:', error);
+    throw error;
+  }
 }
-getOffers()
+
+export async function getOffers() {
+  return fetchOffers();
+}
+
