@@ -1,38 +1,48 @@
-const STORAGE_KEY = "followedOffers"
+const STORAGE_KEY = "followedOffers";
 
-function getFollowedOffers() {
-
-    const storedOffers = localStorage.getItem(STORAGE_KEY)
-
-    if(!storedOffers) {
-        return []
-    }
-
-    return JSON.parse(storedOffers)
-
+export function getFollowedOffers() {
+  const storedOffers = localStorage.getItem(STORAGE_KEY);
+  if (!storedOffers) {
+    return [];
+  }
+  try {
+    return JSON.parse(storedOffers);
+  } catch (e) {
+    return [];
+  }
 }
 
-function addFollowedOffer(offerId) {
-    
-    const followedOffers = getFollowedOffers()
-
-    if(!followedOffers.includes(offerId)) {
-        followedOffers.push(offerId)
-    }
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify-followedOffers)
+export function isOfferFollowed(offerId) {
+  return getFollowedOffers().includes(Number(offerId));
 }
 
-function removeFollowedOffer(offerId) {
-    
-    const followedOffers = getFollowedOffers()
-
-    const updateOffers = followedOffers.filter(id => id !== offerId)
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updateOffers))
+export function isFollowed(offerId) {
+  return isOfferFollowed(offerId);
 }
 
-function isFollowed(offerId) {
-    return getFollowedOffers().includes(offerId)
+export function addFollowedOffer(offerId) {
+  const followedOffers = getFollowedOffers();
+  const idNum = Number(offerId);
+  if (!followedOffers.includes(idNum)) {
+    followedOffers.push(idNum);
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(followedOffers));
 }
 
+export function removeFollowedOffer(offerId) {
+  const followedOffers = getFollowedOffers();
+  const idNum = Number(offerId);
+  const updatedOffers = followedOffers.filter((id) => id !== idNum);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedOffers));
+}
+
+export function toggleFollowOffer(offerId) {
+  const idNum = Number(offerId);
+  if (isOfferFollowed(idNum)) {
+    removeFollowedOffer(idNum);
+    return false;
+  } else {
+    addFollowedOffer(idNum);
+    return true;
+  }
+}
