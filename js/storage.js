@@ -11,3 +11,14 @@ function getFollowedOffers() {
     return JSON.parse(storedOffers)
 
 }
+
+function addFollowedOffer(offerId) {
+    
+    const followedOffers = getFollowedOffers()
+
+    if(!followedOffers.includes(offerId)) {
+        followedOffers.push(offerId)
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify-followedOffers)
+}
