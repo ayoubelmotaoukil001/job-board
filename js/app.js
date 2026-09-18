@@ -5,8 +5,9 @@ import {
   renderOffers,
   updateOfferCount
 } from './render.js';
-import { applyAllFilters } from './filter.js';
+import { applyAllFilters } from './filters.js';
 import { toggleFollowOffer } from './storage.js';
+
 
 let allOffers = [];
 
