@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Développeur Front-end React — Détail de l'offre</title>
+  <title>Détail de l'offre — Stages & Alternances</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,62 +33,10 @@
       </a>
     </div>
 
-    <!-- Article Card -->
-    <article class="bg-white border border-gray-200 rounded-xl p-6 md:p-8 shadow-sm space-y-6">
-      
-      <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
-        <div class="space-y-2">
-          <div class="flex items-center gap-2">
-            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase">STAGE</span>
-            <span class="text-xs text-gray-400">Publié le 09 Septembre 2026</span>
-          </div>
-          <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Développeur Front-end React</h1>
-          <p class="text-sm text-gray-600 font-medium">
-            <span class="text-gray-900 font-semibold">TechCorp</span> • Casablanca, Maroc
-          </p>
-        </div>
-
-        <div>
-          <button type="button" class="border border-rose-200 bg-rose-50 text-rose-600 rounded-lg px-3.5 py-2 text-xs font-medium shadow-sm hover:bg-rose-100 transition">
-            Sauvegarder cette offre
-          </button>
-        </div>
-      </div>
-
-      <hr class="border-t border-gray-100">
-
-      <section class="space-y-2">
-        <h2 class="text-xs font-semibold text-gray-400 uppercase">Technologies requises</h2>
-        <div class="flex flex-wrap gap-1.5">
-          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">React</span>
-          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">Tailwind CSS</span>
-          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">JavaScript (ES6+)</span>
-          <span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">REST API</span>
-        </div>
-      </section>
-
-      <section class="space-y-2">
-        <h2 class="text-sm font-bold text-gray-900">Missions & Responsabilités</h2>
-        <p class="text-xs text-gray-600 leading-relaxed">
-          Au sein de l'équipe produit de TechCorp, vous participerez au développement et à l'optimisation des applications web front-end. Votre rôle consistera à intégrer des maquettes sous Figma en composants React réutilisables et performants.
-        </p>
-      </section>
-
-      <section class="space-y-2">
-        <h2 class="text-sm font-bold text-gray-900">Profil recherché</h2>
-        <ul class="list-disc pl-4 space-y-1 text-xs text-gray-600 leading-relaxed">
-          <li>Étudiant(e) en informatique ou développement web.</li>
-          <li>Bonne maîtrise de HTML5, CSS3, JavaScript et React.js.</li>
-          <li>Sens de l'esthétique et de l'expérience utilisateur (UI/UX).</li>
-        </ul>
-      </section>
-
-      <section class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-1">
-        <h3 class="text-xs font-bold text-gray-900">Contact & Candidature</h3>
-        <p class="text-xs font-mono text-gray-800">recrutement@techcorp.ma</p>
-      </section>
-
-    </article>
+    <!-- Container for dynamic content -->
+    <div id="detail-container">
+      <p class="text-center py-8 text-gray-500 text-sm">Chargement de l'offre...</p>
+    </div>
 
   </main>
 
@@ -105,5 +53,93 @@
     </div>
   </footer>
 
+  <script type="module">
+    import { fetchOffers } from './js/data.js';
+    import { isOfferFollowed, toggleFollowOffer } from './js/storage.js';
+
+    async function loadDetail() {
+      const container = document.getElementById('detail-container');
+      const params = new URLSearchParams(window.location.search);
+      const offerId = Number(params.get('id')) || 1;
+
+      try {
+        const offers = await fetchOffers();
+        const offer = offers.find(o => o.id === offerId) || offers[0];
+
+        if (!offer) {
+          container.innerHTML = '<p class="text-center py-8 text-rose-600 text-sm">Offre introuvable.</p>';
+          return;
+        }
+
+        document.title = `${offer.titre} — Détail de l'offre`;
+
+        const isFollowed = isOfferFollowed(offer.id);
+        const isStage = offer.typeContrat?.toLowerCase() === 'stage';
+
+        container.innerHTML = `
+          <article class="bg-white border border-gray-200 rounded-xl p-6 md:p-8 shadow-sm space-y-6">
+            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="${isStage ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-indigo-50 text-indigo-700 border-indigo-200'} border text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase">
+                    ${offer.typeContrat || 'OFFRE'}
+                  </span>
+                  <span class="text-xs text-gray-400">Publié le ${offer.datePublication || 'Récemment'}</span>
+                </div>
+                <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">${offer.titre}</h1>
+                <p class="text-sm text-gray-600 font-medium">
+                  <span class="text-gray-900 font-semibold">${offer.entreprise}</span> • ${offer.ville}
+                </p>
+              </div>
+
+              <div>
+                <button id="btn-follow-detail" type="button" class="border ${isFollowed ? 'bg-rose-50 text-rose-600 border-rose-200' : 'border-gray-200 text-gray-700 hover:bg-rose-50'} rounded-lg px-3.5 py-2 text-xs font-medium shadow-sm transition">
+                  ${isFollowed ? 'Suivie' : 'Sauvegarder cette offre'}
+                </button>
+              </div>
+            </div>
+
+            <hr class="border-t border-gray-100">
+
+            <section class="space-y-2">
+              <h2 class="text-xs font-semibold text-gray-400 uppercase">Technologies requises</h2>
+              <div class="flex flex-wrap gap-1.5">
+                ${(offer.technologies || []).map(tech => `<span class="bg-gray-100 border border-gray-200 text-gray-800 text-xs px-2.5 py-0.5 rounded">${tech}</span>`).join('')}
+              </div>
+            </section>
+
+            <section class="space-y-2">
+              <h2 class="text-sm font-bold text-gray-900">Description de l'offre</h2>
+              <p class="text-xs text-gray-600 leading-relaxed">${offer.descriptionLongue || offer.descriptionCourte}</p>
+            </section>
+
+            ${offer.profilRecherche ? `
+            <section class="space-y-2">
+              <h2 class="text-sm font-bold text-gray-900">Profil recherché</h2>
+              <p class="text-xs text-gray-600 leading-relaxed">${offer.profilRecherche}</p>
+            </section>` : ''}
+
+            <section class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-1">
+              <h3 class="text-xs font-bold text-gray-900">Contact & Candidature</h3>
+              ${offer.emailContact ? `<p class="text-xs font-mono text-gray-800">${offer.emailContact}</p>` : ''}
+              ${offer.lienCandidature ? `<a href="${offer.lienCandidature}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline">Postuler directement &rarr;</a>` : ''}
+            </section>
+          </article>
+        `;
+
+        const btnFollow = document.getElementById('btn-follow-detail');
+        btnFollow?.addEventListener('click', () => {
+          const followed = toggleFollowOffer(offer.id);
+          btnFollow.textContent = followed ? 'Suivie' : 'Sauvegarder cette offre';
+          btnFollow.className = `border ${followed ? 'bg-rose-50 text-rose-600 border-rose-200' : 'border-gray-200 text-gray-700 hover:bg-rose-50'} rounded-lg px-3.5 py-2 text-xs font-medium shadow-sm transition`;
+        });
+
+      } catch (error) {
+        container.innerHTML = '<p class="text-center py-8 text-rose-600 text-sm">Erreur lors du chargement de l\'offre.</p>';
+      }
+    }
+
+    loadDetail();
+  </script>
 </body>
 </html>

@@ -31,7 +31,7 @@
     <div class="flex items-center justify-between border-b border-gray-200 pb-4">
       <div class="flex items-center gap-2">
         <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">Mes Offres Suivies</h1>
-        <span class="bg-gray-100 text-gray-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-gray-200">(2)</span>
+        <span id="followed-count" class="bg-gray-100 text-gray-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-gray-200">(0)</span>
       </div>
       <a href="index.html" class="text-xs font-medium text-gray-600 hover:text-gray-900">&larr; Explorer les offres</a>
     </div>
@@ -45,40 +45,12 @@
               <th scope="col" class="py-3.5 px-5">Poste</th>
               <th scope="col" class="py-3.5 px-5">Entreprise</th>
               <th scope="col" class="py-3.5 px-5">Type</th>
-              <th scope="col" class="py-3.5 px-5">Date d'ajout</th>
               <th scope="col" class="py-3.5 px-5 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-100 text-sm">
-            <tr class="hover:bg-gray-50/50">
-              <td class="py-3.5 px-5 font-semibold text-gray-900">
-                <a href="offre-detail.html" class="hover:underline">Développeur Front-end React</a>
-              </td>
-              <td class="py-3.5 px-5 text-gray-600">TechCorp (Casablanca)</td>
-              <td class="py-3.5 px-5">
-                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold px-2 py-0.5 rounded-full uppercase">STAGE</span>
-              </td>
-              <td class="py-3.5 px-5 text-gray-500 text-xs">Aujourd'hui</td>
-              <td class="py-3.5 px-5 text-right">
-                <button type="button" class="text-xs font-medium text-red-600 hover:text-red-800 border border-red-200 hover:bg-red-50 px-3 py-1 rounded-lg">
-                  Retirer
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-gray-50/50">
-              <td class="py-3.5 px-5 font-semibold text-gray-900">
-                <a href="offre-detail.html" class="hover:underline">Développeur Fullstack Node.js / React</a>
-              </td>
-              <td class="py-3.5 px-5 text-gray-600">InnoLabs (Rabat)</td>
-              <td class="py-3.5 px-5">
-                <span class="bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-semibold px-2 py-0.5 rounded-full uppercase">ALTERNANCE</span>
-              </td>
-              <td class="py-3.5 px-5 text-gray-500 text-xs">Hier</td>
-              <td class="py-3.5 px-5 text-right">
-                <button type="button" class="text-xs font-medium text-red-600 hover:text-red-800 border border-red-200 hover:bg-red-50 px-3 py-1 rounded-lg">
-                  Retirer
-                </button>
-              </td>
+          <tbody id="followed-list" class="divide-y divide-gray-100 text-sm">
+            <tr>
+              <td colspan="4" class="py-8 text-center text-gray-500 text-xs">Chargement...</td>
             </tr>
           </tbody>
         </table>
@@ -100,5 +72,69 @@
     </div>
   </footer>
 
+  <script type="module">
+    import { fetchOffers } from './js/data.js';
+    import { getFollowedOffers, removeFollowedOffer } from './js/storage.js';
+
+    async function renderFollowedOffers() {
+      const tbody = document.getElementById('followed-list');
+      const countEl = document.getElementById('followed-count');
+      const followedIds = getFollowedOffers();
+
+      countEl.textContent = `(${followedIds.length})`;
+
+      if (followedIds.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="py-12 text-center text-gray-500 text-xs">
+              Vous ne suivez aucune offre pour le moment.
+              <br><a href="index.html" class="text-indigo-600 font-semibold hover:underline mt-1 inline-block">Découvrir les opportunités &rarr;</a>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      try {
+        const allOffers = await fetchOffers();
+        const followedOffers = allOffers.filter(o => followedIds.includes(o.id));
+
+        tbody.innerHTML = followedOffers.map(offer => {
+          const isStage = offer.typeContrat?.toLowerCase() === 'stage';
+          return `
+            <tr class="hover:bg-gray-50/50">
+              <td class="py-3.5 px-5 font-semibold text-gray-900">
+                <a href="offre-detail.html?id=${offer.id}" class="hover:underline">${offer.titre}</a>
+              </td>
+              <td class="py-3.5 px-5 text-gray-600">${offer.entreprise} (${offer.ville})</td>
+              <td class="py-3.5 px-5">
+                <span class="${isStage ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-indigo-50 text-indigo-700 border-indigo-200'} border text-xs font-semibold px-2 py-0.5 rounded-full uppercase">
+                  ${offer.typeContrat}
+                </span>
+              </td>
+              <td class="py-3.5 px-5 text-right">
+                <button type="button" data-id="${offer.id}" class="btn-remove-follow text-xs font-medium text-red-600 hover:text-red-800 border border-red-200 hover:bg-red-50 px-3 py-1 rounded-lg transition">
+                  Retirer
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.btn-remove-follow').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = Number(e.target.dataset.id);
+            removeFollowedOffer(id);
+            renderFollowedOffers();
+          });
+        });
+
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-rose-600 text-xs">Erreur lors de la récupération des offres.</td></tr>';
+      }
+    }
+
+    renderFollowedOffers();
+  </script>
 </body>
 </html>
