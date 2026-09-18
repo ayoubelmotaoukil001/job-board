@@ -21,3 +21,4 @@ function filterOffers(offres, filters) {
         return (matchesCity && matchesContract && matchesTechnology && matchesSearch)
     });
 }
+
