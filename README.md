@@ -4,7 +4,7 @@ Application web interactive et dynamique permettant de consulter, filtrer, reche
 
 ---
 
-## 🚀 1. Lancement du Projet en Local
+##  1. Lancement du Projet en Local
 
 Le projet s'appuie sur les modules ES6 JavaScript (`type="module"`), il doit donc être lancé via un serveur local HTTP :
 
@@ -21,7 +21,7 @@ Accéder à `http://localhost:8000` dans votre navigateur.
 
 ---
 
-## 📁 2. Architecture des Fichiers
+##  2. Architecture des Fichiers
 
 ```text
 job-board/
@@ -43,7 +43,7 @@ job-board/
 
 ---
 
-## 💡 3. Fonctionnement Technique & Algorithmes
+##  3. Fonctionnement Technique & Algorithmes
 
 ### A. Chargement Asynchrone des Données (`js/data.js`)
 Les offres d'emploi sont stockées au format JSON dans `data/offers.json`. Le module `data.js` utilise la méthode native `fetch()` combinée aux mots-clés `async/await` pour charger les données sans bloquer l'interface.
@@ -64,7 +64,7 @@ La sauvegarde des offres suivies s'effectue sans backend via `localStorage` sous
 
 ---
 
-## 🎯 4. Respect du Cahier des Charges (Brief 2)
+##  4. Respect du Cahier des Charges (Brief 2)
 
 - [x] Jeu de données JSON valide avec 12+ offres métier.
 - [x] Chargement dynamique avec états de chargement, erreur et résultats vides.
