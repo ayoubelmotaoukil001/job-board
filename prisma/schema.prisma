@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Entreprise {
+  id          Int     @id @default(autoincrement())
+  nom         String
+  logo        String?
+  description String? @db.Text
+  offres      Offre[]
+
+  @@map("entreprise")
+}
+
+model Technologie {
+  id     Int     @id @default(autoincrement())
+  nom    String  @unique @db.VarChar(100)
+  offres Offre[] @relation("offre_technologie")
+
+  @@map("technologie")
+}
+
+model Offre {
+  id              Int           @id @default(autoincrement())
+  titre           String
+  description     String        @db.Text
+  ville           String        @db.VarChar(100)
+  typeContrat     String        @map("type_contrat") @db.VarChar(50)
+  datePublication DateTime      @map("date_publication") @db.Date
+  entrepriseId    Int           @map("entreprise_id")
+  entreprise      Entreprise    @relation(fields: [entrepriseId], references: [id], onDelete: Cascade)
+  technologies    Technologie[] @relation("offre_technologie")
+
+  @@map("offre")
+}
