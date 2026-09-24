@@ -1,0 +1,38 @@
+{
+  "name": "job-board",
+  "version": "1.0.0",
+  "description": "Application web interactive et dynamique permettant de consulter, filtrer, rechercher, trier et sauvegarder des offres de stages et d'alternances dans le développement web.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:seed": "node database/seed.js",
+    "db:reset": "node database/reset.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayoubelmotaoukil001/job-board.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ayoubelmotaoukil001/job-board/issues"
+  },
+  "homepage": "https://github.com/ayoubelmotaoukil001/job-board#readme",
+  "devDependencies": {
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.3",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4"
+  }
+}
