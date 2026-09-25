@@ -1,0 +1,95 @@
+<%- include('partials/header', { title: (typeof offer !== 'undefined' && offer) ? 'Modifier une offre — Stages & Alternances' : 'Publier une Offre — Stages & Alternances' }) %>
+<%- include('partials/nav', { activePage: (typeof offer !== 'undefined' && offer) ? 'admin' : 'creer' }) %>
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
+
+  <div>
+    <a href="/admin" class="text-xs font-medium text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-2">
+      &larr; Retour à l'administration
+    </a>
+    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">
+      <%= (typeof offer !== 'undefined' && offer) ? "Modifier l'offre" : "Dépôt d'une nouvelle offre" %>
+    </h1>
+    <p class="text-xs text-gray-500 mt-1">
+      <%= (typeof offer !== 'undefined' && offer) ? "Mettez à jour les informations et les technologies de l'annonce." : "Renseignez les informations pour soumettre une offre de stage ou d'alternance." %>
+    </p>
+  </div>
+
+  <form class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-5" action="<%= (typeof offer !== 'undefined' && offer) ? '/admin/offres/' + offer.id + '/modifier' : '/admin/offres/creer' %>" method="POST">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <div class="space-y-1 md:col-span-2">
+        <label for="post-title" class="block text-xs font-bold text-gray-700 uppercase">Titre du poste *</label>
+        <input type="text" id="post-title" name="titre" required value="<%= (typeof offer !== 'undefined' && offer) ? offer.titre : '' %>" placeholder="ex: Développeur Front-end React" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+      </div>
+
+      <div class="space-y-1">
+        <label for="company-name" class="block text-xs font-bold text-gray-700 uppercase">Nom de l'entreprise *</label>
+        <input type="text" id="company-name" name="entreprise_nom" required list="entreprises-list" value="<%= (typeof offer !== 'undefined' && offer) ? offer.entreprise_nom : '' %>" placeholder="ex: TechCorp" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+        <datalist id="entreprises-list">
+          <% if (typeof entreprises !== 'undefined') { %>
+            <% entreprises.forEach(e => { %>
+              <option value="<%= e.nom %>"></option>
+            <% }) %>
+          <% } %>
+        </datalist>
+      </div>
+
+      <div class="space-y-1">
+        <label for="location" class="block text-xs font-bold text-gray-700 uppercase">Ville *</label>
+        <input type="text" id="location" name="ville" required list="villes-list" value="<%= (typeof offer !== 'undefined' && offer) ? offer.ville : '' %>" placeholder="ex: Casablanca" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+        <datalist id="villes-list">
+          <% if (typeof villes !== 'undefined') { %>
+            <% villes.forEach(v => { %>
+              <option value="<%= v %>"></option>
+            <% }) %>
+          <% } %>
+        </datalist>
+      </div>
+
+      <div class="space-y-1">
+        <label for="contract-type" class="block text-xs font-bold text-gray-700 uppercase">Type de contrat *</label>
+        <select id="contract-type" name="type_contrat" required class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+          <option value="">Sélectionner le contrat</option>
+          <option value="Stage" <%= (typeof offer !== 'undefined' && offer && offer.type_contrat && offer.type_contrat.toLowerCase() === 'stage') ? 'selected' : '' %>>Stage</option>
+          <option value="Alternance" <%= (typeof offer !== 'undefined' && offer && offer.type_contrat && offer.type_contrat.toLowerCase() === 'alternance') ? 'selected' : '' %>>Alternance</option>
+          <option value="CDI" <%= (typeof offer !== 'undefined' && offer && offer.type_contrat && offer.type_contrat.toUpperCase() === 'CDI') ? 'selected' : '' %>>CDI</option>
+          <option value="CDD" <%= (typeof offer !== 'undefined' && offer && offer.type_contrat && offer.type_contrat.toUpperCase() === 'CDD') ? 'selected' : '' %>>CDD</option>
+        </select>
+      </div>
+
+      <div class="space-y-1">
+        <label for="tech-stack" class="block text-xs font-bold text-gray-700 uppercase">Technologies *</label>
+        <input type="text" id="tech-stack" name="technologies" required value="<%= (typeof offer !== 'undefined' && offer && offer.technologies) ? offer.technologies.map(t => t.nom).join(', ') : '' %>" placeholder="ex: React, Tailwind CSS, JavaScript" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+      </div>
+
+    </div>
+
+    <div class="space-y-1">
+      <label for="description" class="block text-xs font-bold text-gray-700 uppercase">Description de la mission *</label>
+      <textarea id="description" name="description" rows="3" required placeholder="Décrivez les objectifs et les tâches du poste..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white"><%= (typeof offer !== 'undefined' && offer) ? offer.description : '' %></textarea>
+    </div>
+
+    <div class="space-y-1">
+      <label for="profile" class="block text-xs font-bold text-gray-700 uppercase">Profil recherché</label>
+      <textarea id="profile" name="profil" rows="2" placeholder="Compétences souhaitées et niveau d'études..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white"></textarea>
+    </div>
+
+    <div class="space-y-1">
+      <label for="contact-email" class="block text-xs font-bold text-gray-700 uppercase">Contact / Email</label>
+      <input type="text" id="contact-email" name="contact_email" placeholder="ex: recrutement@entreprise.ma" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+    </div>
+
+    <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
+      <a href="/admin" class="px-4 py-2 text-xs font-medium text-gray-600 hover:text-gray-900">Annuler</a>
+      <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm">
+        <%= (typeof offer !== 'undefined' && offer) ? "Enregistrer les modifications" : "Publier l'offre" %>
+      </button>
+    </div>
+
+  </form>
+
+</main>
+
+<%- include('partials/footer') %>

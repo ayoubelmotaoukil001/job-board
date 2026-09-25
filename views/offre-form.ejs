@@ -1,0 +1,85 @@
+<% const isEdit = typeof offer !== 'undefined' && offer && offer.id; %>
+<%- include('partials/header', { title: (isEdit ? 'Modifier l\'offre' : 'Publier une Offre') + ' — Stages & Alternances' }) %>
+<%- include('partials/nav', { activePage: isEdit ? '' : 'creer' }) %>
+
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
+
+  <div>
+    <a href="/admin" class="text-xs font-medium text-gray-500 hover:text-gray-900 inline-flex items-center gap-1 mb-2">
+      &larr; Retour a l'administration
+    </a>
+    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">
+      <%= isEdit ? 'Modification de l\'offre' : 'Dépôt d\'une nouvelle offre' %>
+    </h1>
+    <p class="text-xs text-gray-500 mt-1">
+      <%= isEdit ? 'Mettez a jour les informations de l\'offre.' : 'Renseignez les informations pour soumettre une offre de stage ou d\'alternance.' %>
+    </p>
+  </div>
+
+  <form class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-5" action="<%= isEdit ? '/admin/offres/editer/' + offer.id : '/admin/offres' %>" method="POST">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <div class="space-y-1 md:col-span-2">
+        <label for="titre" class="block text-xs font-bold text-gray-700 uppercase">Titre du poste *</label>
+        <input type="text" id="titre" name="titre" required value="<%= isEdit ? offer.titre : '' %>" placeholder="ex: Développeur Front-end React" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+      </div>
+
+      <div class="space-y-1">
+        <label for="entreprise_id" class="block text-xs font-bold text-gray-700 uppercase">Nom de l'entreprise *</label>
+        <select id="entreprise_id" name="entreprise_id" required class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+          <option value="">Sélectionner l'entreprise</option>
+          <% entreprises.forEach(e => { %>
+            <option value="<%= e.id %>" <%= isEdit && offer.entreprise_id == e.id ? 'selected' : '' %>><%= e.nom %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="space-y-1">
+        <label for="ville" class="block text-xs font-bold text-gray-700 uppercase">Ville *</label>
+        <input type="text" id="ville" name="ville" required value="<%= isEdit ? offer.ville : '' %>" placeholder="ex: Casablanca" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+      </div>
+
+      <div class="space-y-1">
+        <label for="type_contrat" class="block text-xs font-bold text-gray-700 uppercase">Type de contrat *</label>
+        <select id="type_contrat" name="type_contrat" required class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white">
+          <option value="">Sélectionner le contrat</option>
+          <option value="Stage" <%= isEdit && offer.type_contrat && offer.type_contrat.toLowerCase() === 'stage' ? 'selected' : '' %>>Stage</option>
+          <option value="Alternance" <%= isEdit && offer.type_contrat && offer.type_contrat.toLowerCase() === 'alternance' ? 'selected' : '' %>>Alternance</option>
+          <option value="CDI" <%= isEdit && offer.type_contrat && offer.type_contrat.toLowerCase() === 'cdi' ? 'selected' : '' %>>CDI</option>
+          <option value="CDD" <%= isEdit && offer.type_contrat && offer.type_contrat.toLowerCase() === 'cdd' ? 'selected' : '' %>>CDD</option>
+        </select>
+      </div>
+
+      <div class="space-y-2 md:col-span-2">
+        <label class="block text-xs font-bold text-gray-700 uppercase">Technologies</label>
+        <div class="flex flex-wrap gap-2.5 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+          <% technologies.forEach(t => { %>
+            <% const isChecked = isEdit && offer.technologies && offer.technologies.some(tech => tech.id == t.id); %>
+            <label class="inline-flex items-center gap-2 text-xs font-medium text-gray-700 cursor-pointer border border-gray-200 rounded-md px-3 py-1.5 bg-white hover:bg-gray-100">
+              <input type="checkbox" name="technologies" value="<%= t.id %>" <%= isChecked ? 'checked' : '' %> class="rounded text-gray-900 focus:ring-gray-900">
+              <span><%= t.nom %></span>
+            </label>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="space-y-1">
+      <label for="description" class="block text-xs font-bold text-gray-700 uppercase">Description de la mission *</label>
+      <textarea id="description" name="description" rows="4" required placeholder="Décrivez les objectifs et les tâches du poste..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:bg-white"><%= isEdit ? offer.description : '' %></textarea>
+    </div>
+
+    <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
+      <a href="/admin" class="px-4 py-2 text-xs font-medium text-gray-600 hover:text-gray-900">Annuler</a>
+      <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white font-medium text-xs px-5 py-2 rounded-lg shadow-sm">
+        <%= isEdit ? 'Enregistrer les modifications' : 'Publier l\'offre' %>
+      </button>
+    </div>
+
+  </form>
+
+</main>
+
+<%- include('partials/footer') %>

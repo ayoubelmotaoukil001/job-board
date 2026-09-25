@@ -1,111 +1,69 @@
-# Job Board Full-Stack — Node.js / Express / MySQL / EJS
+# Job Board — Stages & Alternances
 
-Application web full-stack dynamique permettant de consulter, filtrer, rechercher et trier des offres de stages et d'alternances dans le développement web.
+Application web Full-Stack permettant la consultation, la recherche, le filtrage et la gestion administrative (CRUD) d'offres de stages et d'alternances dans le domaine du developpement web.
 
----
+## Architecture
 
-## 1. Description du projet
+L'application repose sur une architecture Node.js / Express structurée avec le design pattern Repository :
 
-Ce projet transforme la version initiale statique en une application Web dynamique basée sur Node.js, Express, MySQL et EJS. Les offres ne proviennent plus d'un fichier JSON, mais d'une base de données relationnelle MySQL modélisée et gérée via des requêtes SQL préparées.
+- **Serveur & Routing** : Node.js avec Express.js (`server.js`).
+- **Moteur de Vues** : EJS (Embedded JavaScript) avec composants réutilisables (`views/partials/`) et intégration du framework Tailwind CSS.
+- **Base de Données** : MySQL via le driver `mysql2/promise` avec requêtes préparées (`?` placeholders).
+- **Couche Repository** (`src/repositories/`) :
+  - `entrepriseRepository.js` : Gestion des requêtes liées aux entreprises.
+  - `technologieRepository.js` : Gestion des requêtes liées aux technologies.
+  - `offreRepository.js` : Centralisation des requêtes SQL pour le catalogue, le filtrage et les opérations CRUD sur les offres.
 
----
+## Structure de la Base de Données
 
-## 2. Technologies utilisées
+- `entreprise` : `id`, `nom`, `logo`, `description`.
+- `technologie` : `id`, `nom`.
+- `offre` : `id`, `titre`, `description`, `ville`, `type_contrat`, `date_publication`, `entreprise_id`.
+- `offre_technologie` : Table d'association Many-to-Many entre `offre` et `technologie`.
 
-* **Backend** : Node.js, Express.js
-* **Base de données** : MySQL, driver `mysql2/promise` (SQL brut avec requêtes préparées `?`)
-* **Moteur de templates** : EJS avec partials réutilisables
-* **Styling** : Tailwind CSS (CDN) et Vanilla CSS (`public/css/style.css`)
-* **Persistance client** : LocalStorage (pour les offres suivies/favoris)
+## Prérequis
 
----
+- Node.js (version 18 ou supérieure)
+- npm (Node Package Manager)
+- Un serveur MySQL / MariaDB en cours d'exécution
 
-## 3. Prérequis
+## Installation et Configuration
 
-* Node.js (v18+)
-* NPM
-* Serveur MySQL en cours d'exécution (ex: via XAMPP, Docker, ou service local)
+1. **Cloner le projet et installer les dépendances** :
+   ```bash
+   npm install
+   ```
 
----
+2. **Configurer les variables d'environnement** :
+   Créer un fichier `.env` à la racine du projet en s'inspirant du fichier `.env.example` :
+   ```env
+   PORT=3000
+   DATABASE_URL=mysql://root:password@localhost:3306/job_board
+   ```
 
-## 4. Configuration des variables d'environnement
+3. **Initialiser la base de données** :
+   Exécuter le script de réinitialisation et de seeding pour créer le schéma SQL et insérer les données de démonstration :
+   ```bash
+   npm run db:reset
+   ```
 
-Créer un fichier `.env` à la racine du projet en vous basant sur le fichier `.env.example` :
+4. **Lancer le serveur de développement** :
+   ```bash
+   npm run dev
+   ```
+   L'application sera accessible à l'adresse : `http://localhost:3000`
 
-```env
-PORT=3000
-DATABASE_URL=mysql://root:password@localhost:3306/jobboard
-```
+## Liste des Routes
 
-Remplacer `root`, `password`, `localhost`, `3306` et `jobboard` par vos accès MySQL.
+### Routes Publiques
+- `GET /` : Catalogue public avec moteur de recherche, filtres (contrat, ville, technologie) et tri par date.
+- `GET /offres/:id` : Page de détail d'une offre d'emploi.
+- `GET /offres-suivies` : Page d'affichage des offres sauvegardées localement.
 
----
-
-## 5. Installation et Lancement
-
-### Étape 1 : Installer les dépendances
-```bash
-npm install
-```
-
-### Étape 2 : Initialiser la base de données et charger les données de test
-Cette commande crée les tables MySQL (`entreprise`, `technologie`, `offre`, `offre_technologie`) puis exécute le seeder JS :
-```bash
-npm run db:reset
-```
-
-Pour ré-exécuter uniquement le seeder sans re-créer les tables :
-```bash
-npm run db:seed
-```
-
-### Étape 3 : Démarrer le serveur
-
-**Mode développement (avec rechargement automatique) :**
-```bash
-npm run dev
-```
-
-**Mode production :**
-```bash
-npm start
-```
-
-L'application sera accessible sur `http://localhost:3000`.
-
----
-
-## 6. Architecture des dossiers
-
-```text
-job-board/
-├── database/
-│   ├── schema.sql              # Déclaration DDL des tables, PK, FK et contraintes
-│   ├── seed.js                 # Seeder automatique (5 entreprises, 8 technologies, 12 offres)
-│   └── reset.js                # Script de réinitialisation complète de la BDD
-├── docs/                       # Documentation de conception (Diagrammes UML, MLD, Cahier des charges)
-├── public/
-│   └── css/
-│       └── style.css           # Styles complémentaires CSS
-├── src/
-│   └── db.js                   # Pool de connexion MySQL (mysql2/promise)
-├── views/                      # Vues EJS dynamiques
-│   ├── partials/               # Partials (header, nav, footer)
-│   ├── index.ejs               # Catalogue public avec filtres et tri
-│   ├── offre-detail.ejs        # Fiche détail d'une offre
-│   └── offres-suivies.ejs      # Offres enregistrées (localStorage)
-├── .env.example                # Exemple de configuration d'environnement
-├── package.json                # Scripts npm et dépendances
-├── server.js                   # Point d'entrée principal de l'application Express
-└── README.md                   # Documentation du projet
-```
-
----
-
-## 7. Routes de l'application
-
-| Méthode | Route | Description |
-|---|---|---|
-| `GET` | `/` | Liste des offres avec recherche, filtres (ville, contrat, technologie) et tri par date |
-| `GET` | `/offres/:id` | Consultation détaillée d'une offre spécifique |
-| `GET` | `/offres-suivies` | Page de consultation des offres sauvegardées dans `localStorage` |
+### Routes Administration (Back-Office)
+- `GET /admin` : Tableau de bord listant l'ensemble des offres d'emploi avec actions.
+- `GET /admin/offres/creer` : Formulaire de création d'une nouvelle offre.
+- `POST /admin/offres` : Traitement de la création d'une offre et association des technologies.
+- `GET /admin/offres/editer/:id` : Formulaire de modification d'une offre existante pré-remplie.
+- `POST /admin/offres/editer/:id` : Traitement de la mise à jour d'une offre et synchronisation des technologies.
+- `POST /admin/offres/supprimer/:id` : Traitement de la suppression définitive d'une offre.
