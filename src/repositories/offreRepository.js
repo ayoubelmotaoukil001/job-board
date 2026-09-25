@@ -69,9 +69,15 @@ const offreRepository = {
   },
 
   async create(data) {
-    let entrepriseId = data.entreprise_id;
+    let entrepriseId = data.entreprise_id || null;
     if (!entrepriseId && data.entreprise_nom) {
       entrepriseId = await entrepriseRepository.findOrCreate(data.entreprise_nom);
+    }
+    if (!entrepriseId) {
+      const defaultCompanies = await entrepriseRepository.findAll();
+      if (defaultCompanies.length > 0) {
+        entrepriseId = defaultCompanies[0].id;
+      }
     }
 
     const datePublication = data.date_publication || new Date().toISOString().slice(0, 10);
@@ -84,9 +90,13 @@ const offreRepository = {
       fullDescription += '\n\nContact : ' + data.contact_email.trim();
     }
 
+    const titre = data.titre || '';
+    const ville = data.ville || '';
+    const typeContrat = data.type_contrat || '';
+
     const [result] = await pool.execute(
       'INSERT INTO offre (titre, description, ville, type_contrat, date_publication, entreprise_id) VALUES (?, ?, ?, ?, ?, ?)',
-      [data.titre, fullDescription, data.ville, data.type_contrat, datePublication, entrepriseId]
+      [titre, fullDescription, ville, typeContrat, datePublication, entrepriseId]
     );
 
     const newId = result.insertId;
@@ -104,17 +114,17 @@ const offreRepository = {
       return false;
     }
 
-    let entrepriseId = data.entreprise_id;
+    let entrepriseId = data.entreprise_id || null;
     if (!entrepriseId && data.entreprise_nom) {
       entrepriseId = await entrepriseRepository.findOrCreate(data.entreprise_nom);
     }
 
     const datePublication = data.date_publication || existing.date_publication;
-    const finalEntrepriseId = entrepriseId || existing.entreprise_id;
-    const titre = data.titre || existing.titre;
-    const description = data.description || existing.description;
-    const ville = data.ville || existing.ville;
-    const typeContrat = data.type_contrat || existing.type_contrat;
+    const finalEntrepriseId = entrepriseId || existing.entreprise_id || null;
+    const titre = data.titre || existing.titre || '';
+    const description = data.description || existing.description || '';
+    const ville = data.ville || existing.ville || '';
+    const typeContrat = data.type_contrat || existing.type_contrat || '';
 
     await pool.execute(
       'UPDATE offre SET titre = ?, description = ?, ville = ?, type_contrat = ?, date_publication = ?, entreprise_id = ? WHERE id = ?',
@@ -131,6 +141,14 @@ const offreRepository = {
   async delete(id) {
     const [result] = await pool.execute('DELETE FROM offre WHERE id = ?', [id]);
     return result.affectedRows > 0;
+  },
+
+  async deleteById(id) {
+    return this.delete(id);
+  },
+
+  async findAllForAdmin() {
+    return this.findAll();
   },
 
   async getDistinctVilles() {
