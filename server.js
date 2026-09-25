@@ -72,24 +72,23 @@ app.get('/admin/offres', (req, res) => {
   res.redirect('/admin');
 });
 
-app.get('/admin/offres/creer', async (req, res) => {
+app.get(['/admin/offres/creer', '/deposer-offre'], async (req, res) => {
   try {
     const entreprises = await entrepriseRepository.findAll();
+    const technologies = await technologieRepository.findAll();
     const villes = await offreRepository.getDistinctVilles();
-    res.render('deposer-offre', { offer: null, entreprises, villes });
+    res.render('offre-form', { offer: null, entreprises, technologies, villes });
   } catch (error) {
     console.error(error);
     res.status(500).send('Erreur serveur interne');
   }
 });
 
-app.get('/deposer-offre', (req, res) => {
-  res.redirect('/admin/offres/creer');
-});
-
-app.post('/admin/offres/creer', async (req, res) => {
+app.post(['/admin/offres', '/admin/offres/creer'], async (req, res) => {
   try {
-    await offreRepository.create(req.body);
+    const { titre, description, ville, type_contrat, entreprise_id, technologies } = req.body;
+    const techIds = Array.isArray(technologies) ? technologies : (technologies ? [technologies] : []);
+    await offreRepository.create({ titre, description, ville, type_contrat, entreprise_id }, techIds);
     res.redirect('/admin');
   } catch (error) {
     console.error(error);
@@ -97,34 +96,27 @@ app.post('/admin/offres/creer', async (req, res) => {
   }
 });
 
-app.post('/admin/offres', async (req, res) => {
-  try {
-    await offreRepository.create(req.body);
-    res.redirect('/admin');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Erreur serveur interne');
-  }
-});
-
-app.get(['/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
+app.get(['/admin/offres/editer/:id', '/admin/offres/:id/editer', '/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
   try {
     const offer = await offreRepository.findById(req.params.id);
     if (!offer) {
       return res.status(404).send('Offre non trouvee');
     }
     const entreprises = await entrepriseRepository.findAll();
+    const technologies = await technologieRepository.findAll();
     const villes = await offreRepository.getDistinctVilles();
-    res.render('deposer-offre', { offer, entreprises, villes });
+    res.render('offre-form', { offer, entreprises, technologies, villes });
   } catch (error) {
     console.error(error);
     res.status(500).send('Erreur serveur interne');
   }
 });
 
-app.post(['/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
+app.post(['/admin/offres/editer/:id', '/admin/offres/:id/editer', '/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
   try {
-    const updated = await offreRepository.update(req.params.id, req.body);
+    const { titre, description, ville, type_contrat, entreprise_id, technologies } = req.body;
+    const techIds = Array.isArray(technologies) ? technologies : (technologies ? [technologies] : []);
+    const updated = await offreRepository.update(req.params.id, req.body, techIds);
     if (!updated) {
       return res.status(404).send('Offre non trouvee');
     }
@@ -135,9 +127,9 @@ app.post(['/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, r
   }
 });
 
-app.post(['/admin/offres/:id/supprimer', '/admin/offres/:id/delete'], async (req, res) => {
+app.post(['/admin/offres/supprimer/:id', '/admin/offres/:id/supprimer', '/admin/offres/:id/delete'], async (req, res) => {
   try {
-    const deleted = await offreRepository.delete(req.params.id);
+    const deleted = await offreRepository.deleteById(req.params.id);
     if (!deleted) {
       return res.status(404).send('Offre non trouvee');
     }
