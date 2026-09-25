@@ -1,0 +1,11 @@
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/" class="font-bold text-lg text-gray-900">Stages & Alternances</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="/" class="<%= typeof activePage !== 'undefined' && activePage === 'offres' ? 'text-gray-900 border-b-2 border-gray-900 pb-0.5' : 'text-gray-600 hover:text-gray-900' %>">Offres</a>
+        <a href="/offres-suivies" class="<%= typeof activePage !== 'undefined' && activePage === 'suivies' ? 'text-gray-900 border-b-2 border-gray-900 pb-0.5' : 'text-gray-600 hover:text-gray-900' %>">Offres Suivies</a>
+        <a href="/admin/offres/creer" class="<%= typeof activePage !== 'undefined' && activePage === 'creer' ? 'text-gray-900 border-b-2 border-gray-900 pb-0.5' : 'text-gray-600 hover:text-gray-900' %>">Publier une offre</a>
+      </nav>
+      <a href="/admin" class="bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm">Espace Admin</a>
+    </div>
+  </header>
