@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const entrepriseRepository = require('./src/repositories/entrepriseRepository');
-const technologieRepository = require('./src/repositories/technologieRepository');
 const offreRepository = require('./src/repositories/offreRepository');
+const technologieRepository = require('./src/repositories/technologieRepository');
+const entrepriseRepository = require('./src/repositories/entrepriseRepository');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,9 +16,10 @@ app.use(express.json());
 
 app.get('/', async (req, res) => {
   try {
-    const offers = await offreRepository.findAll(req.query);
-    const villes = await offreRepository.getVilles();
-    const contrats = await offreRepository.getContrats();
+    const { search, contrat, ville, technologie, sort } = req.query;
+    const offers = await offreRepository.findAll({ search, contrat, ville, technologie, sort });
+    const villes = await offreRepository.getDistinctVilles();
+    const contrats = await offreRepository.getDistinctContrats();
     const technologies = await technologieRepository.findAll();
 
     res.render('index', {
@@ -59,7 +60,7 @@ app.get('/offres/:id', async (req, res) => {
 
 app.get('/admin', async (req, res) => {
   try {
-    const offers = await offreRepository.findAllForAdmin();
+    const offers = await offreRepository.findAll();
     res.render('admin', { offers });
   } catch (error) {
     console.error(error);
@@ -67,11 +68,29 @@ app.get('/admin', async (req, res) => {
   }
 });
 
+app.get('/admin/offres', (req, res) => {
+  res.redirect('/admin');
+});
+
 app.get('/admin/offres/creer', async (req, res) => {
   try {
     const entreprises = await entrepriseRepository.findAll();
-    const technologies = await technologieRepository.findAll();
-    res.render('offre-form', { offer: null, entreprises, technologies });
+    const villes = await offreRepository.getDistinctVilles();
+    res.render('deposer-offre', { offer: null, entreprises, villes });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur serveur interne');
+  }
+});
+
+app.get('/deposer-offre', (req, res) => {
+  res.redirect('/admin/offres/creer');
+});
+
+app.post('/admin/offres/creer', async (req, res) => {
+  try {
+    await offreRepository.create(req.body);
+    res.redirect('/admin');
   } catch (error) {
     console.error(error);
     res.status(500).send('Erreur serveur interne');
@@ -80,9 +99,7 @@ app.get('/admin/offres/creer', async (req, res) => {
 
 app.post('/admin/offres', async (req, res) => {
   try {
-    const { titre, description, ville, type_contrat, entreprise_id, technologies } = req.body;
-    const techIds = Array.isArray(technologies) ? technologies : (technologies ? [technologies] : []);
-    await offreRepository.create({ titre, description, ville, type_contrat, entreprise_id }, techIds);
+    await offreRepository.create(req.body);
     res.redirect('/admin');
   } catch (error) {
     console.error(error);
@@ -90,26 +107,27 @@ app.post('/admin/offres', async (req, res) => {
   }
 });
 
-app.get('/admin/offres/editer/:id', async (req, res) => {
+app.get(['/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
   try {
     const offer = await offreRepository.findById(req.params.id);
     if (!offer) {
       return res.status(404).send('Offre non trouvee');
     }
     const entreprises = await entrepriseRepository.findAll();
-    const technologies = await technologieRepository.findAll();
-    res.render('offre-form', { offer, entreprises, technologies });
+    const villes = await offreRepository.getDistinctVilles();
+    res.render('deposer-offre', { offer, entreprises, villes });
   } catch (error) {
     console.error(error);
     res.status(500).send('Erreur serveur interne');
   }
 });
 
-app.post('/admin/offres/editer/:id', async (req, res) => {
+app.post(['/admin/offres/:id/modifier', '/admin/offres/:id/edit'], async (req, res) => {
   try {
-    const { titre, description, ville, type_contrat, entreprise_id, technologies } = req.body;
-    const techIds = Array.isArray(technologies) ? technologies : (technologies ? [technologies] : []);
-    await offreRepository.update(req.params.id, { titre, description, ville, type_contrat, entreprise_id }, techIds);
+    const updated = await offreRepository.update(req.params.id, req.body);
+    if (!updated) {
+      return res.status(404).send('Offre non trouvee');
+    }
     res.redirect('/admin');
   } catch (error) {
     console.error(error);
@@ -117,9 +135,12 @@ app.post('/admin/offres/editer/:id', async (req, res) => {
   }
 });
 
-app.post('/admin/offres/supprimer/:id', async (req, res) => {
+app.post(['/admin/offres/:id/supprimer', '/admin/offres/:id/delete'], async (req, res) => {
   try {
-    await offreRepository.deleteById(req.params.id);
+    const deleted = await offreRepository.delete(req.params.id);
+    if (!deleted) {
+      return res.status(404).send('Offre non trouvee');
+    }
     res.redirect('/admin');
   } catch (error) {
     console.error(error);
